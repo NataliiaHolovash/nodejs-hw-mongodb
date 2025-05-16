@@ -8,24 +8,26 @@ const contactsSchema = new Schema(
       type: String,
       required: true,
     },
-    age: {
+    phoneNumber: {
       type: Number,
       required: true,
     },
-    gender: {
+    email: {
       type: String,
-      required: true,
-      enum: ['male', 'female', 'other'],
+      required: false,
+      
     },
-    avgMark: {
-      type: Number,
-      required: true,
-    },
-    onDuty: {
+    isFavourite: {
       type: Boolean,
-      required: true,
+      required: false,
       default: false,
     },
+    contactType: {
+      type: String,
+      enum: ['work', 'home', 'personal'],
+      required: true,
+      default: 'personal',
+    }
   },
   {
     timestamps: true,
