@@ -1,4 +1,4 @@
- // src/db/models/student.js 
+ // src/db/models/contacts.js 
 
 import { model, Schema } from 'mongoose';
 

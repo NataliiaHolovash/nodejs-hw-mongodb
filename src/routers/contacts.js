@@ -16,15 +16,12 @@ import { isValidId } from "../middlewares/isValiId.js";
 
 const router = Router();
 
-router.get('/contacts', ctrlWrapper(getContactsController) );
-router.get('/contacts/:contactId', ctrlWrapper(getContactByIdController) );
-router.post('/contacts', ctrlWrapper(createContactController));
-router.delete('/contacts/:contactId', ctrlWrapper(deleteContactController));
-router.put('/contacts/:contactId', ctrlWrapper(upsertContactController));
-router.patch('/contacts/:contactId', ctrlWrapper(patchContactController));
-router.post('/', validateBody(createContactSchema), ctrlWrapper(createContactController));
-router.put('contacts/:contactId', validateBody(updateContactSchema), ctrlWrapper(patchContactController));
-router.get('/:contactId', isValidId, ctrlWrapper(getContactByIdController));
+router.get('/contacts', ctrlWrapper(getContactsController));
+router.get('/contacts/:contactId', isValidId, ctrlWrapper(getContactByIdController));
+router.post('/contacts', validateBody(createContactSchema), ctrlWrapper(createContactController));
+router.delete('/contacts/:contactId', isValidId, ctrlWrapper(deleteContactController));
+router.put('/contacts/:contactId', isValidId, validateBody(updateContactSchema), ctrlWrapper(upsertContactController));
+router.patch('/contacts/:contactId', isValidId, validateBody(updateContactSchema), ctrlWrapper(patchContactController));
 
 
 export default router;

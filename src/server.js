@@ -32,7 +32,7 @@ export const startServer = () => {
     });
   });
 
-  app.use(contactsRouter); // Додаємо роутер до app як middleware
+  app.use('/', contactsRouter); // Додаємо роутер до app як middleware
 
     app.use('*', notFoundHandler);
 
