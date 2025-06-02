@@ -23,7 +23,7 @@ export const createContactSchema = Joi.object({
       'any.only': 'Contact type must be one of: work, home, personal',
       'any.required': 'Contact type is required',
     }),
-    parentId: Joi.string().custom((value, helper) => {
+    userId: Joi.string().custom((value, helper) => {
       if (value && !isValidObjectId(value)) {
         return helper.message('Parent id should be a valid mongo id');
       }

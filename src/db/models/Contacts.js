@@ -28,9 +28,10 @@ const contactsSchema = new Schema(
       required: true,
       default: 'personal',
     },
-    parentId: { // нова властивість 
+    userId: { // нова властивість 
       type: Schema.Types.ObjectId, 
-      ref: 'users' 
+      ref: 'user',
+      required: true,
     },  
   },
   {

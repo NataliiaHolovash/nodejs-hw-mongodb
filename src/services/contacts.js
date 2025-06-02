@@ -4,24 +4,21 @@ import { SORT_ORDER } from '../constants/index.js';
 
 // export const getAllContacts = () => ContactsCollection.find();
 
-export const getContactById = (contactId) =>
-  ContactsCollection.findById(contactId);
+export const getContactById = (contactId, userId) =>
+  ContactsCollection.findById({_id: contactId, userId: userId});
 
 export const createContact = async (payload) => {
   const contact = await ContactsCollection.create(payload);
   return contact;
 };
 
-export const deleteContact = async (contactId) => {
-  const contact = await ContactsCollection.findOneAndDelete({
-    _id: contactId,
-  });
-  return contact;
+export const deleteContact = async (contactId, userId) => {
+  return ContactsCollection.findOneAndDelete({_id: contactId, userId: userId});
 };
 
-export const updateContact = async (contactId, payload, options = {}) => {
+export const updateContact = async (contactId, userId, payload, options = {}) => {
   const rawResult = await ContactsCollection.findByIdAndUpdate(
-    { _id: contactId },
+    { _id: contactId, userId: userId },
     payload,
     {
       new: true,
