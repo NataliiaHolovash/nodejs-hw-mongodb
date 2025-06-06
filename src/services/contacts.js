@@ -5,7 +5,7 @@ import { SORT_ORDER } from '../constants/index.js';
 // export const getAllContacts = () => ContactsCollection.find();
 
 export const getContactById = (contactId, userId) =>
-  ContactsCollection.findById({_id: contactId, userId: userId});
+  ContactsCollection.findOne({_id: contactId, userId: userId});
 
 export const createContact = async (payload) => {
   const contact = await ContactsCollection.create(payload);
@@ -17,7 +17,7 @@ export const deleteContact = async (contactId, userId) => {
 };
 
 export const updateContact = async (contactId, userId, payload, options = {}) => {
-  const rawResult = await ContactsCollection.findByIdAndUpdate(
+  const rawResult = await ContactsCollection.findOneAndUpdate(
     { _id: contactId, userId: userId },
     payload,
     {
@@ -41,33 +41,15 @@ export const getAllContacts = async ({
   sortOrder = SORT_ORDER.ASC,
   sortBy = '_id',
   filter = {},
+  userId,
 }) => {
   const limit = perPage;
   const skip = (page - 1) * perPage;
 
-  const contactsQuery = ContactsCollection.find();
-  if (filter.gender) {
-    contactsQuery.where('gender').equals(filter.gender);
-  }
-  if (filter.maxAge) {
-    contactsQuery.where('age').lte(filter.maxAge);
-  }
-  if (filter.minAge) {
-    contactsQuery.where('age').gte(filter.minAge);
-  }
-  if (filter.maxAvgMark) {
-    contactsQuery.where('avgMark').lte(filter.maxAvgMark);
-  }
-  if (filter.minAvgMark) {
-    contactsQuery.where('avgMark').gte(filter.minAvgMark);
-  } 
-    
-  
-  // const contactsCount = await ContactsCollection.find().merge(contactsQuery).countDocuments();
-
-  // const contacts = await contactsQuery.skip(skip).limit(limit).sort({[sortBy]: sortOrder }).exec();
+  const contactsQuery = ContactsCollection.find({ userId });
+ 
 const [contactsCount, contacts] = await Promise.all([
-    ContactsCollection.find().merge(contactsQuery).countDocuments(),
+    ContactsCollection.find({ userId }).merge(contactsQuery).countDocuments(),
     contactsQuery
       .skip(skip)
       .limit(limit)
