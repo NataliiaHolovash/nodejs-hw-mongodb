@@ -6,7 +6,9 @@ import { updateContact } from "../services/contacts.js";
 import { parsePaginationParams } from "../utils/parsePaginationParams.js";
 import { parseSortParams } from "../utils/parseSortParams.js";
 import { parseFilterParams } from "../utils/parseFilterParams.js";
-
+import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
+import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
+import { getEnvVar } from '../utils/getEnvVar.js';
 
 
 export const getContactByIdController = async (req, res) => {
@@ -72,6 +74,18 @@ export const upsertContactController = async (req, res, next) => {
 
 export const patchContactController = async (req, res, next) => {
     const { contactId } = req.params;
+    const photo = req.file;
+    let photoUrl;
+  
+    if (photo) {
+        if (getEnvVar('ENABLE_CLOUDINARY') === 'true') {
+           photoUrl = await saveFileToCloudinary(photo);
+        } else {
+            photoUrl = await saveFileToUploadDir(photo);
+        req.body.photo = photoUrl;
+       } 
+    }
+   
     const userId = req.user._id.toString();
     const result = await updateContact(contactId, userId, req.body);
 
