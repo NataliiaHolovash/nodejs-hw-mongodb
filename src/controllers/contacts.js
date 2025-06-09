@@ -82,8 +82,8 @@ export const patchContactController = async (req, res, next) => {
            photoUrl = await saveFileToCloudinary(photo);
         } else {
             photoUrl = await saveFileToUploadDir(photo);
+        }
         req.body.photo = photoUrl;
-       } 
     }
    
     const userId = req.user._id.toString();
