@@ -16,7 +16,7 @@ tags:
     description: Auth operations.
 servers:
   - url: http://localhost:3000
-  - url: #посилання на задеплоєний сайт
+  - url: https://contacts-app-swagger-a8oj.onrender.com
 paths:
   # тут будуть посилання на ендпоінти 
    /contacts:
