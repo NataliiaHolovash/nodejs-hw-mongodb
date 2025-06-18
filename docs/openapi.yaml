@@ -15,7 +15,7 @@ tags:
   - name: Auth
     description: Auth operations.
 servers:
-  - url: http://localhost:3003
+  - url: http://localhost:3005
   - url: https://contacts-app-swagger-a8oj.onrender.com
 paths:
   /contacts:
