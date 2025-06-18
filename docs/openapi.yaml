@@ -15,16 +15,15 @@ tags:
   - name: Auth
     description: Auth operations.
 servers:
-  - url: http://localhost:3000
+  - url: http://localhost:3003
   - url: https://contacts-app-swagger-a8oj.onrender.com
 paths:
-  # тут будуть посилання на ендпоінти 
-   /contacts:
+  /contacts:
     get:
       $ref: '../swagger/paths/contacts/get.yaml'
     post:
       $ref: '../swagger/paths/contacts/post.yaml'
-   /contacts/{id}:
+  /contacts/{id}:
     get:
       $ref: '../swagger/paths/contacts/{id}/get.yaml'
     patch:

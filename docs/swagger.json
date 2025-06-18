@@ -11,10 +11,10 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3000"
+      "url": "http://localhost:3003"
     },
     {
-      "url": null
+      "url": "https://contacts-app-swagger-a8oj.onrender.com"
     }
   ],
   "tags": [
@@ -28,12 +28,11 @@
     }
   ],
   "paths": {
-    "/contacts": {
-      "get": {
-        "get": {
-          "tags": [
-            "Contacts"
-          ],
+   "/contacts": {
+     "get": {
+        "tags": [
+         "Contacts"
+        ],
           "summary": "Get list of contacts",
           "operationId": "getAllContacts",
           "description": "Get list of contacts with this endpoint",
@@ -46,40 +45,44 @@
             {
               "in": "query",
               "name": "page",
-              "schema": null,
+              "schema": {
               "type": "integer",
               "example": 1
+              }
             },
             {
               "in": "query",
               "name": "perPage",
-              "schema": null,
+              "schema": {
               "type": "integer",
               "example": 10
+              }
             },
             {
               "in": "query",
               "name": "sortBy",
-              "schema": null,
+              "schema": {
               "type": "string",
               "example": "name",
               "description": "All contact's fields can be mentioned. Default value - _id"
+              }
             },
             {
               "in": "query",
               "name": "sortOrder",
-              "schema": null,
+              "schema": {
               "type": "string",
               "enum": [
                 "asc",
                 "desc"
               ],
               "example": "asc"
+              }
             },
             {
               "in": "query",
               "name": "type",
-              "schema": null,
+              "schema": {
               "type": "string",
               "enum": [
                 "work",
@@ -87,13 +90,15 @@
                 "personal"
               ],
               "example": "work"
+              }
             },
             {
               "in": "query",
               "name": "isFavorite",
-              "schema": null,
+              "schema": {
               "type": "boolean",
               "example": true
+              }
             }
           ],
           "responses": {
@@ -102,9 +107,8 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "type": "object"
-                  },
-                  "required": [
+                    "type": "object", 
+                    "required": [
                     "status",
                     "message",
                     "data"
@@ -113,7 +117,9 @@
                     "status": {
                       "type": "integer",
                       "example": 200
-                    },
+                    }
+                  }
+                 ,
                     "message": {
                       "type": "string",
                       "example": "Successfully found contacts!"
@@ -132,10 +138,10 @@
                       "properties": {
                         "data": {
                           "type": "array",
-                          "items": null
+                          "items": {"$ref": "#/components/schemas/contacts"}
                         }
                       },
-                      "$ref": "../../components/schemas/contacts.yaml",
+                      
                       "page": {
                         "type": "number",
                         "example": 2
@@ -166,13 +172,13 @@
               }
             },
             "401": {
-              "$ref": "../../components/responses/401.yaml"
+              "$ref": "#/components/responses/401"
             },
             "404": {
-              "$ref": "../../components/responses/404.yaml"
+              "$ref": "#/components/responses/404"
             },
             "500": {
-              "$ref": "../../components/responses/500.yaml"
+              "$ref": "#/components/responses/500"
             }
           }
         }
@@ -207,8 +213,8 @@
                   },
                   "phoneNumber": {
                     "description": "Contact's phone number",
-                    "type": "number",
-                    "example": 380998887766
+                    "type": "string",
+                    "example": "380998887766"
                   },
                   "email": {
                     "description": "Contact's email",
@@ -261,8 +267,8 @@
                       "example": "Successfully created a contact!"
                     },
                     "data": {
-                      "type": "object",
                       "$ref": "#/components/schemas/contacts"
+                      }
                     }
                   }
                 }
@@ -331,7 +337,9 @@
                     },
                     "data": {
                       "type": "object",
+                      "items": {
                       "$ref": "#/components/schemas/contacts"
+                      }
                     }
                   }
                 }
@@ -384,9 +392,9 @@
                     "example": "John Doe"
                   },
                   "phoneNumber": {
-                    "type": "number",
+                    "type": "string",
                     "description": "Contact's phone number",
-                    "example": 380998887766
+                    "example": "380998887766"
                   },
                   "email": {
                     "type": "string",
@@ -439,7 +447,6 @@
                       "example": "Successfully patched a contact!"
                     },
                     "data": {
-                      "type": "object",
                       "$ref": "#/components/schemas/contacts"
                     }
                   }
@@ -485,8 +492,8 @@
           }
         ],
         "responses": {
-          "201": {
-            "description": "No content"
+          "204": {
+            "description": "Successfully deleted contact"
           },
           "401": {
             "$ref": "#/components/responses/401"
@@ -531,8 +538,8 @@
           },
           "phoneNumber": {
             "description": "Contact's phone number",
-            "type": "number",
-            "example": 380998887766
+            "type": "string",
+            "example": "380998887766"
           },
           "email": {
             "description": "Contact's email",
