@@ -212,7 +212,7 @@
                   },
                   "phoneNumber": {
                     "description": "Contact's phone number",
-                    "type": "number",
+                    "type": "string",
                     "example": 380998887766
                   },
                   "email": {
@@ -389,7 +389,7 @@
                     "example": "John Doe"
                   },
                   "phoneNumber": {
-                    "type": "number",
+                    "type": "string",
                     "description": "Contact's phone number",
                     "example": 380998887766
                   },
@@ -536,7 +536,7 @@
           },
           "phoneNumber": {
             "description": "Contact's phone number",
-            "type": "number",
+            "type": "string",
             "example": 380998887766
           },
           "email": {
